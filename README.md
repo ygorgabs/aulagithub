@@ -1,4 +1,3 @@
-# Git e GitHub
 ## O que é
 
 - **Git:** Sistema de versionamento de projetos. Cada modificação/versão do projeto é chamada de commit.
@@ -34,6 +33,18 @@ O que não deve ser salvo:
 - Arquivos de configuração da IDE;
 - Arquivos de configuração do sistema.
 
+## Branch
+
+No git uma branch é um workspace paralelo onde é possível realizar mudanças sem afetar o projeto principal. Esse workspace separado é uma cópia do principal para a partir dele fazer uma ramificação (daí o nome branch).
+
+Essa função é utilizada para:
+
+- Desenvolver novas funções
+- Corrigir bugs
+- Testar ideias
+
+Com as branchs é possível trabalhar em diferente frentes em um projeto sem afetar diretamente o ramo principal e nem outras branchs. Quando concluída a tarefa uma branch pode ser mesclada (merge) com a branch main do projeto.
+
 ## Comandos git
 
 ### Configuração
@@ -61,7 +72,7 @@ O que não deve ser salvo:
 - `git log` - Mostra a lista dos commits de um repositório na ordem reversa em que foram adicionados. Sinaliza também até qual commit o repositório remoto está atualizado.
 - `git log --oneline` - Mostra a lista dos commits de um repositório de maneira resumida.
 - `git diff nome_arquivo` - Exibe no terminal qual foram as modificações realizadas em um arquivo em comparação com última versão.
-- `git checkout codigo_commit ou nome_branch` - permite trocar de branch ou restaturar temporariamente os arquivos do projeto ao estado de determinado commit.
+- `git checkout codigo_commit` - permite restaturar temporariamente os arquivos do projeto ao estado de determinado commit.
 - `git checkout HEAD~n` - restaura o projeto ao n commit anterior ao HEAD (último commit). Sendo n = 1 o penúltimo, n = 2 o antepenúltimo e assim por diante.
 - `git commit` - o commit sem a mensagem faz abrir o editor de texto de terminal para digitar a mensagem do commit. No windows pode abri o Vim e no linux irá abrir o Nano.
 - `git pull nome_remote nome_branch` - atualiza o repositório local em comparação com o remoto.
@@ -78,3 +89,18 @@ O que não deve ser salvo:
 - `git reset --soft HEAD~1` - desfaz o último commit sem apagar as modificações feitas, lançando elas novamente na working tree.
 - `git reset --hard HEAD~1` - desfaz o último commit e apaga todas as modificações.
 - `git reset --hard codigo_commit` - volta o projeto ao estado de um dado commit. Todos os commits e alterações posteriores serão apagadas.
+
+### Branch e merge
+
+- `git branch` - lista todas as branch de um repositório.
+- `git branch nome_branch` - cria uma nova branch com o nome informado.
+- `git switch nome_branch` - permite trocar de branch.
+- `git checkout nome_branch` - permite trocar de branch.
+- `git checkout -b nome_branch` - cria uma nova branch e faz a troca da branch atual para a nova.
+- `git branch -d nome_branch` - exclui a branch caso ela já tenha ocorrido o merge com a branch principal.
+- `git branch -D nome_branch` - força a exclusão da branch caso ela não tenha ocorrido o merge com a branch principal.
+- `git branch -m nome_antigo nome_novo` - renomeia uma branch.
+- `git merge nome_branch` - mescla a branch informada na branch atual, incorporando suas alterações e preservando os commits originais. Se for possível fazer um fast-forward, o Git apenas avança o ponteiro da branch atual. Caso contrário, será criado um commit de merge, que conecta os históricos das duas branches.
+- `git merge --squash nome_branch` - reúne todas as alterações da branch informada em uma única alteração preparada para commit na branch atual, sem incorporar os commits originais à linhagem dessa branch. Usado para manter limpo o histórico de commits após um merge. Necessário executar um git commit logo após.
+- `git merge --no-ff nome_branch` - mescla a branch informada na branch atual, preservando seus commits originais. Impede o fast-forward, forçando a criação de um commit de merge, mesmo quando seria possível apenas avançar o ponteiro da branch atual.
+- `git merge --abort` - serve para cancelar um merge em caso de erro, por exemplo, um conflito em algum arquivo durante o merge.
